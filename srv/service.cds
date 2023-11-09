@@ -1,8 +1,7 @@
-using { shalu as my } from '../db/schema';
+using {shalu as my } from '../db/schema';
 
 service ProcessorService { 
-  @odata.draft.enabled
-    entity Incidents as projection on my.Incidents;
+   entity Incidents as projection on my.Incidents;
 
     @readonly
     entity Customers as projection on my.Customers;
@@ -10,3 +9,5 @@ service ProcessorService {
 extend projection ProcessorService.Customers with {
   firstName || ' ' || lastName as name: String
 }
+annotate ProcessorService.Incidents with @odata.draft.enabled ;
+annotate ProcessorService with @(requires: ['support']);
